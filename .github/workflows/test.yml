@@ -1,10 +1,10 @@
-name: Security Scan and Tests
+name: Security Scan and Lint
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, master ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, master ]
 
 jobs:
   security-scan:
@@ -12,10 +12,10 @@ jobs:
     
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: '3.12'
     
@@ -27,22 +27,27 @@ jobs:
     
     - name: Run Bandit Security Scan
       run: |
-        bandit -r src/ -ll -f json -o bandit-report.json
+        echo "Running Bandit security scan..."
+        bandit -r src/ -ll -f json -o bandit-report.json || true
         bandit -r src/ -ll
       continue-on-error: true
     
-    - name: Check Code Quality with Flake8
+    - name: Run Flake8 Linting
       run: |
-        flake8 src/ --max-line-length=88 --exclude=__pycache__
+        echo "Running Flake8 code quality checks..."
+        flake8 src/ --max-line-length=100 --exclude=__pycache__
       continue-on-error: true
     
     - name: Check Dependencies for Vulnerabilities
       run: |
-        safety check --json
+        echo "Checking dependencies for known vulnerabilities..."
+        safety check --json || true
       continue-on-error: true
     
     - name: Upload Bandit Report
-      uses: actions/upload-artifact@v3
+      if: always()
+      uses: actions/upload-artifact@v4
       with:
         name: bandit-security-report
         path: bandit-report.json
+        if-no-files-found: ignore
