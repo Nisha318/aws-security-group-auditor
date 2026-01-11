@@ -1,4 +1,3 @@
-cat > README.md << 'EOF'
 # AWS Security Group Auditor
 
 **Automated compliance tool for identifying overly permissive AWS security group rules**
