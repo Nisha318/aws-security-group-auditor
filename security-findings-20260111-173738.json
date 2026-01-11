@@ -1,0 +1,38 @@
+[
+  {
+    "timestamp": "2026-01-11T17:37:36.116428",
+    "region": "us-east-1",
+    "group_id": "sg-0760e62cfcefd2434",
+    "group_name": "dev-alb-sg",
+    "vpc_id": "vpc-0e8f039b73ed0d403",
+    "severity": "MEDIUM",
+    "protocol": "tcp",
+    "port_range": "80",
+    "exposed_services": [],
+    "finding": "Allows unrestricted access (0.0.0.0/0) on tcp ports 80-80",
+    "remediation": "Restrict source IP ranges to known networks",
+    "nist_controls": [
+      "AC-4",
+      "SC-7",
+      "SC-7(5)"
+    ]
+  },
+  {
+    "timestamp": "2026-01-11T17:37:36.116489",
+    "region": "us-east-1",
+    "group_id": "sg-0760e62cfcefd2434",
+    "group_name": "dev-alb-sg",
+    "vpc_id": "vpc-0e8f039b73ed0d403",
+    "severity": "MEDIUM",
+    "protocol": "tcp",
+    "port_range": "443",
+    "exposed_services": [],
+    "finding": "Allows unrestricted access (0.0.0.0/0) on tcp ports 443-443",
+    "remediation": "Restrict source IP ranges to known networks",
+    "nist_controls": [
+      "AC-4",
+      "SC-7",
+      "SC-7(5)"
+    ]
+  }
+]
